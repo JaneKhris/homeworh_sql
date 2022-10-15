@@ -13,6 +13,9 @@ VALUES('dance');
 INSERT INTO genre(name) 
 VALUES('folk');
 
+INSERT INTO genre(name) 
+VALUES('hard rock');
+
 INSERT INTO artist(name) 
 VALUES('Adele');
 
@@ -63,6 +66,9 @@ VALUES('Doll Domination','2008');
 
 INSERT INTO album(name, year_of_issue) 
 VALUES('Loose','2007');
+
+INSERT INTO album(name, year_of_issue) 
+VALUES('Music To Be Murdered By','2020');
 
 INSERT INTO collection (name, year_of_issue) 
 VALUES('Summertime Ballads','2018');
@@ -157,6 +163,9 @@ VALUES(1, 7);
 INSERT INTO genre_artist (genre_id, artist_id) 
 VALUES(1, 8);
 
+INSERT INTO genre_artist (genre_id, artist_id) 
+VALUES(6, 5);
+
 INSERT INTO artist_album (artist_id, album_id) 
 VALUES(1, 1);
 
@@ -184,6 +193,9 @@ VALUES(8, 8);
 INSERT INTO artist_album (artist_id, album_id) 
 VALUES(3, 9);
 
+INSERT INTO artist_album (artist_id, album_id) 
+VALUES(2, 10);
+
 INSERT INTO track_collection (track_id, collection_id) 
 VALUES(1, 1);
 
@@ -204,5 +216,3 @@ VALUES(9, 6);
 
 INSERT INTO track_collection (track_id, collection_id) 
 VALUES(12, 8);
-
-
