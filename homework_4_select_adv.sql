@@ -16,7 +16,7 @@ GROUP BY a.name;
 
 --все исполнители, которые не выпустили альбомы в 2020 году;
 SELECT name FROM artist
-WHERE name != 
+WHERE name NOT IN 
 (SELECT ar.name FROM artist_album aa  
 JOIN artist ar ON ar.id = aa.artist_id
 JOIN album al  ON aa.album_id= al.id
@@ -32,16 +32,13 @@ JOIN artist ar ON ar.id = aa.artist_id
 WHERE ar.name = 'Eminem';
 
 --название альбомов, в которых присутствуют исполнители более 1 жанра;
-SELECT album.name FROM artist
-JOIN artist_album ON artist_album.artist_id  = artist.id 
-JOIN album ON album.id = artist_album.album_id
-WHERE artist.name = 
-(SELECT ar.name FROM genre_artist ga
-JOIN artist ar ON ar.id = ga.artist_id
-JOIN genre g ON ga.genre_id = g.id
-GROUP BY ar.name
-HAVING COUNT(*) > 1
-ORDER BY COUNT(*) DESC);
+SELECT al.name FROM album al
+JOIN artist_album aa ON aa.album_id = al.id 
+JOIN artist ar ON ar.id = aa.artist_id 
+JOIN genre_artist ga ON ga.artist_id = ar.id 
+JOIN genre g ON g.id = ga.genre_id 
+GROUP BY al.name
+HAVING COUNT(*) > 1;
 
 --наименование треков, которые не входят в сборники;
 SELECT t.name  FROM track t
@@ -55,8 +52,13 @@ JOIN artist ar ON ar.id = aa.artist_id
 WHERE t.duration = (SELECT MIN(duration) FROM  track);
 
 --название альбомов, содержащих наименьшее количество треков.
-SELECT a.name , COUNT(*) FROM album a 
+SELECT a.name FROM album a 
+JOIN track t on t.album = a.id 
+GROUP BY a.name
+HAVING COUNT(*) = (
+SELECT COUNT(*) FROM album a 
 JOIN track t on t.album = a.id 
 GROUP BY a.name
 ORDER BY COUNT(*)
-LIMIT 5;
+LIMIT 1);
+
